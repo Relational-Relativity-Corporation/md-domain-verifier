@@ -108,3 +108,22 @@ anomaly, the structural violation has already propagated.
 
 Framework: [ABRCE Invariant Relational Kernel](https://relationalrelativity.dev/)
 Org: [Relational-Relativity-Corporation](https://github.com/Relational-Relativity-Corporation)
+
+---
+
+## ABRCE layer roadmap
+
+This tool currently implements **operator A** — domain declaration and admissibility.
+Planned extensions cover the remaining operators in sequence:
+
+| Layer | Operator | Description |
+|-------|----------|-------------|
+| ✅ A  | Admissibility | Declared domain vs. implemented domain |
+| 🔲 B  | Boundedness   | Enforce value and cardinality constraints |
+| 🔲 R  | Relational    | Verify relation composition order is preserved |
+| 🔲 C  | Coherence     | Check cross-component consistency |
+| 🔲 E  | Execution     | Runtime gate — reject non-admissible execution paths |
+
+Each layer builds on the previous. A violation at operator A means subsequent
+operators are operating on an undeclared domain — their results are structurally
+unreliable regardless of local correctness.
