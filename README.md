@@ -106,5 +106,5 @@ anomaly, the structural violation has already propagated.
 
 ## Framework
 
-Framework: [Invariant_Relational_Kernel_ABRCE](https://github.com/Relational-Relativity-Corporation/Invariant_Relational_Kernel_ABRCE)
+Framework: [ABRCE Invariant Relational Kernel](https://relationalrelativity.dev)
 Org: [Relational-Relativity-Corporation](https://github.com/Relational-Relativity-Corporation)
