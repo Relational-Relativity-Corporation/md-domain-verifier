@@ -1,29 +1,79 @@
 # md-domain-verifier
 
-A CLI tool that verifies whether code operates within explicitly defined domain boundaries.
+> Smallest possible domain verification tool demonstrating the ABRCE operator-A admissibility check applied to code.
+> **Metatron Dynamics, 2026**
 
-## Overview
+---
 
-This tool compares:
+## What this does
 
-- **Declared system** ? domain.yaml
-- **Implemented system** ? source code
+A running system can produce locally valid outputs while operating outside its declared domain.
+This tool catches that structural failure at the source by comparing a declarative domain.yaml
+against the symbols extracted from the implementation — before the system runs.
 
-It detects mismatches between the two, including:
+This is a direct implementation of the operator-A admissibility condition from the
+[ABRCE invariant relational kernel](https://github.com/Relational-Relativity-Corporation/Invariant_Relational_Kernel_ABRCE):
+declare the domain first. No processing outside the declared domain is valid.
 
-- Relations used but not declared
-- Declared relations not implemented
-- Inputs defined but not used
-- Outputs expected but not produced
+---
+
+## How it works
+
+1. domain.yaml declares the domain: inputs, relations, outputs, constraints
+2. scanner.py extracts symbols from the implementation (.py, .cpp, .h)
+3. checks.py compares declared symbols against extracted symbols
+4. eport.py prints the verification report
+
+Errors are raised for:
+- Relations present in the implementation but not declared in domain.yaml
+- Relations declared in domain.yaml but absent from the implementation
+
+Info messages are raised for:
+- Declared inputs not found in the implementation
+- Declared outputs not found in the implementation
+
+---
+
+## Structure
+
+```
+md-domain-verifier/
+├── domain_verifier/
+│   ├── __init__.py
+│   ├── parser.py
+│   ├── scanner.py
+│   ├── checks.py
+│   └── report.py
+├── examples/
+│   └── thermal_solver/
+│       ├── domain.yaml
+│       └── thermal_equilibrium_solver.cpp
+├── md_verify.py
+├── requirements.txt
+└── README.md
+```
+
+---
+
+## Setup
+
+```
+pip install pyyaml
+```
+
+---
 
 ## Example
 
 Run:
 
+```
 python md_verify.py examples/thermal_solver
+```
 
-Example output:
+Output:
 
+```
 --- Domain Verification Report ---
 
 Domain: thermal_equilibrium
@@ -34,41 +84,27 @@ Domain: thermal_equilibrium
 [INFO] Declared output not produced: equilibrium_temperature
 
 ---------------------------------
+```
 
-## What This Means
+The convection term appears in the implementation but was never declared in domain.yaml.
+The diffusion relation was declared but is absent from the implementation.
+Both are operator-A violations: processing is occurring outside the declared domain.
 
-- The system is performing a transformation (convection) not defined in the domain
-- A declared transformation (diffusion) is not present in the implementation
-- Inputs and outputs do not align with system behavior
+---
 
-This reveals when a system operates outside its declared assumptions.
+## ABRCE layer
 
-## Why It Matters
+This tool operates entirely at operator A — domain declaration and admissibility.
+It does not execute the system. It verifies that the declared domain matches the
+implemented domain before any execution occurs.
 
-Most systems fail not because of syntax errors, but because they operate outside the conditions under which they are valid.
+The admissibility gap this catches: a system can pass every runtime check while
+operating on undeclared relations. By the time conventional monitoring detects the
+anomaly, the structural violation has already propagated.
 
-This tool makes those mismatches visible.
+---
 
-## Structure
+## Framework
 
-md-domain-verifier/
-�
-+-- md_verify.py
-+-- verifier/
-�   +-- parser.py
-�   +-- scanner.py
-�   +-- checks.py
-�   +-- report.py
-�
-+-- examples/
-�   +-- thermal_solver/
-�       +-- domain.yaml
-�       +-- thermal_equilibrium_solver.cpp
-
-## Status
-
-Early reference implementation.
-
-## License
-
-MIT (or specify)
+Framework: [Invariant_Relational_Kernel_ABRCE](https://github.com/Relational-Relativity-Corporation/Invariant_Relational_Kernel_ABRCE)
+Org: [Relational-Relativity-Corporation](https://github.com/Relational-Relativity-Corporation)
