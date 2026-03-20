@@ -1,0 +1,14 @@
+domain: thermal_equilibrium
+
+inputs:
+  - temperature
+  - boundary_conditions
+
+constraints:
+  - temperature >= 0
+
+relations:
+  - diffusion
+
+outputs:
+  - equilibrium_temperature
