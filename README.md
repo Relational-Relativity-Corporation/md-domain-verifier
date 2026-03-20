@@ -12,7 +12,7 @@ This tool catches that structural failure at the source by comparing a declarati
 against the symbols extracted from the implementation — before the system runs.
 
 This is a direct implementation of the operator-A admissibility condition from the
-[ABRCE invariant relational kernel](https://github.com/Relational-Relativity-Corporation/Invariant_Relational_Kernel_ABRCE):
+[ABRCE invariant relational kernel](https://relationalrelativity.dev/):
 declare the domain first. No processing outside the declared domain is valid.
 
 ---
@@ -106,5 +106,5 @@ anomaly, the structural violation has already propagated.
 
 ## Framework
 
-Framework: [ABRCE Invariant Relational Kernel](https://relationalrelativity.dev)
+Framework: [ABRCE Invariant Relational Kernel](https://relationalrelativity.dev/)
 Org: [Relational-Relativity-Corporation](https://github.com/Relational-Relativity-Corporation)
